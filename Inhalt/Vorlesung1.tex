@@ -5,4 +5,180 @@ Montag: 08.April 2019
 
 \subsection{Gruppen} 
 \label{sec:gruppen}
-IT-Sicherheit und Datenschutz
+
+Damit wir eine Gruppe bilden können, müssen folgende drei Regeln erfüllt werden.
+\begin{eqnarray}
+a * (b * c) = (a * b) * c  \\
+id * a = a \\
+a^{-1} * a = id
+\end{eqnarray}
+Dabei sei $\mathbb{M}$ eine Menge, in der IT endlich und *  eine Operation zwischen zwei Elementen der Menge $\mathbb{M}$. Man beachte, dass eine Gruppe nur das Kommutativ Gesetz erfüllt.
+
+Des weiteren gilt in den betrachteten Gruppen:
+
+\begin{eqnarray}
+a * id  = id * a = a
+\end{eqnarray}
+
+da,
+\begin{eqnarray}
+a * id = a * (a^{-1} * a) \\
+ =(a * a^{-1}) * a \\
+\end{eqnarray}
+
+und
+\begin{eqnarray}
+a * id &=& id * a = a\\
+a &=& id * a | erweitert mit a^{-1} \\
+a * a^{-1} &=& id * a^{-1} | mit (c * a^{-1} = id\\
+&=&(c * a^{-1}) * (a * a^{-1}) \\
+&=&((c * a^{-1}) * a) * a^{-1} \\
+&=&( c * (a^{-1} * a)) * a^{-1} \\
+&=&( c * (id)) * a^{-1} | id ist ein neutrales Element\\
+&=&c * a^{-1} | mit c * a^{-1} = id \\
+&=&id \\
+\end{eqnarray}
+
+Sei $\#$ die Menge der Elemente in $\mathbb{M}$. $\#$ wird auch als Leiterchen bezeichnet.
+
+Sei $a^{m} = a^{n}$, dann ist die kleinst mögliche differenz zwischen den beiden $k$ und es gilt.
+
+\begin{eqnarray}
+a^{m} = a^{n} \\
+a^{m+k} = a^{n} \\
+a^{m} * a^{k} =  a^{n} \\
+=> a^{k} = id
+\end{eqnarray}
+
+Sei $a * b = a * c$ ist $b = c$
+
+Es gibt die Menge $\mathbb{M} = \{id, b_{1}, b_{2}, ...,  b_{\#-1}\}$ und die Menge $\mathbb{M}_0 = \{ id, a, a^{2}, a^{3}, ... , a^{k-1}\}$ in der es keine Dubletten gibt, das die erste Dublette $id = a^{k}$ wäre.
+
+Wenn man nun neue Mengen bildet aus $\mathbb{M}$ und $\mathbb{M}_{0}$ gibt es $\#$ viele Mengen. Enthält eine Menge nur ein Element, dass auch in einer anderen Menge vorkommt, so sind beide Mengen identisch. 
+
+Darauß ergibt sich, dass
+\begin{eqnarray}
+n * k = \# \\
+a^{\#} = a^{kn} = (a^{k})^{n} = id^{n} = id
+\end{eqnarray}
+
+
+\subsection{Diffi-Hellmann}
+\label{sec:hellmann}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+                                                                                                                                                      & Alice                      & Bob                        \\
+\begin{tabular}[c]{@{}l@{}}\end{tabular} & M, *, \#                   & M, *,\#                    \\
+                                                                                                                                                      & $g \in \mathbb{M}$                     & $g \in \mathbb{M}$ \\
+private Key                                                                                                                                           & 1 \textless x \textless \# & 1 \textless y \textless \# \\
+public Key                                                                                                                                            & $g^{x}$                         & $g^{y}$                          \\
+Schlüsselvereinbarung                                                                                                                                 & $g^{y}$                         & $g^{x}$                          \\
+                                                                                                                                                      & $(g^{y})^{x}$                        & $(g^{x})^{y}$                       
+\end{tabular}%
+\caption{Diffi-Hellmann - Schlüsselvereinbarung}
+\label{diffiHellmanTable}
+\end{table}
+
+Dabei muss $\#$ muss genau bekannt sein. $g$ ist ein öffentliches Generatorpolynom. Und die Gruppe hat meist zwischen $2^{200}$ bis $2^{500}$ Werte. 
+
+Wenn man einen Text verschlüsselt, wird jedes Zeichen des Textes verschlüsselt und übertragen in der Form $c_{i}g^{x_{i}y_{i}}$ und dann mit Hilfe des inversen entschlüsselt: $c_{i}g^{x_{i}y_{i}} * g^{-x_{i}y_{i}} = c_{i}$
+
+Das inverse ist einfach $g^{\# - x}$.
+
+Einschub: Es git eine Angriffsform die die Laufzeit untersucht, um anhand der Laufzeit und geschätzten Anzahl an Operationen Rückschlüsse auf den Verschlüsselungsalgorithmus zu machen.
+
+\subsection{Gruppendarstellung und Untergruppen}
+\label{sec:GruppenUtergruppen}
+
+Man kann eine Menge $\mathbb{M} = \{ id, a, b\}$ als Tabelle aufschreiben.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+*  & id & a  & b  \\ \hline
+id & id & a  & b  \\ \hline
+a  & a  & b  & id \\ \hline
+b  & b  & id & a  \\ \hline
+\end{tabular}
+\caption{abstracte Menge mit 3 Elementen}
+\label{Menge 3-Abstract}
+\end{table}
+
+Mann kann auch einfach die + Operation mod 3 in einer solchen Tabelle aufschreiben. Das wichtige ist, dass in einer Spalte und einer Zeile, jedes Element der Menge $\mathbb{M}$ nur einmal vorkommen darf.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
++ mod 3 & 0 & 1 & 2 \\ \hline
+0       & 0 & 1 & 2 \\ \hline
+1       & 1 & 2 & 0 \\ \hline
+2       & 2 & 0 & 1 \\ \hline
+\end{tabular}
+\caption{Menge 3 mit Zahlen}
+\label{Menge 3-Addition}
+\end{table}
+
+Wenn man beide Tabellen vergleicht stellt man fest, dass sie isomorph sind. Das bedeutet, dass man einfach id = 0, a = 1 und b = 2 definieren kann und feststellt, dass die abstrakte Tabelle gleich der 3-Addition ist.
+
+Des weiteren gilt, dass alle Gruppen die eine Größe $\#$ haben, die eine Primzahl sind haben genau eine Gruppe und besitzen keine Untergruppen. Daher sind alle Gruppen, die die selbe Größe $\#$ haben und diese Größe eine Primzahl ist isomorph.
+
+Untergruppen entstehen wenn $\#$ keine Primzahl ist und so $\#$ einen Teiler hat. Jeder Teiler der durch Primfaktorzerlegung entsteht ist eine eigene Gruppe.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+XOR & 0 & 1 & 2 & 3 \\ \hline
+0   & 0 & 1 & 2 & 3 \\ \hline
+1   & 1 & 0 & 3 & 2 \\ \hline
+2   & 2 & 3 & 0 & 1 \\ \hline
+3   & 3 & 2 & 1 & 0 \\ \hline
+\end{tabular}
+\caption{XOR Menge 4}
+\label{xorMEnge4}
+\end{table}
+
+Diese Menge hat die Untergruppe:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+XOR & 0 & 1 \\ \hline
+0   & 0 & 1  \\ \hline
+1   & 1 & 0 \\ \hline
+\end{tabular}
+\caption{Untergruppe Menge 2}
+\label{Menge 2}
+\end{table}
+ 
+Untergruppen spielen eine wichtige Rolle bei der Wahl des Generatorpolynoms.
+
+\subsection{Generatorpolynom}
+\label{sec:generatorpolynom}
+
+Das Generatorpolynom $g^{x}$ muss so gewählt werden, dass es eine möglichst große Teilmenge von $\mathbb{M}$ abdeckt. Wenn es nur einen kleinen Bereich abdeckt ist es leicht zu knacken.
+
+Beispiel:
+Sei die Primzahl 11 -> Rechnung mit mod 11
+
+Vergleich von Generatorpolynomen:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+     & 1  & 2 & 3 & 4 & 5  & 6 & 7 & 8 & 9 & 10 \\ \hline
+g=2  & 2  & 4 & 8 & 5 & 10 & 9 & 7 & 3 & 6 & 1  \\ \hline
+g=4  & 4  & 5 & 9 & 3 & 1  &   &   &   &   &    \\ \hline
+g=10 & 10 & 1 &   &   &    &   &   &   &   &    \\ \hline
+\end{tabular}
+\caption{Generatorpolynom}
+\label{generatorpolynom}
+\end{table}
+
+Man erkennt wenn man mit $g=2$ rechnet, dass man alle Elemente des Körpers durchgeht, bevor man auf das neutrale Element, die 1 stößt. Wenn man $g=4$ nimmt, dann werden nur noch 5 Elemente der Menge genutzt. Wenn man $g=10$ nutzt werden sogar nur 2 Elemente genutzt. Je weniger unterschiedliche Elemente genommen werden, desto einfacher ist es herauszubekommen welchen Wert x hat, sprich was der private Key ist.
